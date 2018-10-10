@@ -1,0 +1,24 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import StoriesRouter from "./StoriesRouter";
+
+function Pagination({ pageNumber, path }) {
+  let currentPage = pageNumber;
+  let nextPage = Number(currentPage) + 1;
+  let previousPage = Number(currentPage) - 1;
+
+  return (
+    <div className="pagination">
+      <Link to={`${path}/${previousPage}`}>Previous</Link>
+      <Link to={`${path}/${nextPage}`}>Next</Link>
+    </div>
+  );
+}
+
+/**
+ * Display More if previousPage is less, than zero
+ * Link to currentPage/previousPage if clicked less
+ * Link to currentPage/nextPage if clicked more
+ */
+
+export default Pagination;

@@ -1,19 +1,33 @@
 import React, { Component } from "react";
 import Page from "./Page";
+import Pagination from "./Pagination";
 import { getStories } from "../services/hackernewsapi";
+
+const initialState = {
+  currentDisplay: 0,
+      stories: [],
+      pageNumber: 0,
+      path: undefined
+}
 
 class Stories extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentDisplay: 0,
-      stories: []
+      stories: [],
+      pageNumber: props.match.params.page || 0,
+      path: this.getPath(props.match.path)
     };
-    this.page = props.match.match.params.page || 0;
+  }
+
+  getPath(path) {
+    let regex = /\/:.*/gi;
+    return path.replace(regex, "");
   }
 
   componentDidMount() {
-    this.updateStoryItems(this.props.category)
+    this.updateStoryItems(this.props.category);
   }
 
   componentDidUpdate(prevProps) {
@@ -21,13 +35,33 @@ class Stories extends Component {
       this.setState({ stories: [] });
       this.updateStoryItems(this.props.category);
     }
+
+    if (prevProps.match.params.page !== this.props.match.params.page) {
+      this.setState({
+        stories: [],
+        pageNumber: this.props.match.params.page
+      });
+      this.updateStoryItems(this.props.category);
+    }
+
+    if (prevProps.match.path !== this.props.match.path) {
+      this.setState({ stories: [], path: this.getPath(this.props.match.path) });
+      this.updateStoryItems(this.props.category);
+    }
+
+    if (prevProps.match.url !== this.props.match.url) {
+      this.setState({ stories: [], path: this.getPath(this.props.match.path) });
+      this.updateStoryItems(this.props.category);
+    }
   }
 
   updateStoryItems(category) {
     getStories(category).then(rawStories => {
-      let stories = this.getItems(rawStories, this.page).map(story => {
-        return { story: story.item.val(), index: story.index };
-      });
+      let stories = this.getItems(rawStories, this.state.pageNumber).map(
+        story => {
+          return { story: story.item.val(), index: story.index };
+        }
+      );
       this.setState({ stories });
     });
   }
@@ -46,7 +80,7 @@ class Stories extends Component {
     return (
       <div className="container">
         <Page items={this.state.stories} />
-        <div className="pagination">More</div>
+        <Pagination pageNumber={this.state.pageNumber} path={this.state.path} />
       </div>
     );
   }
