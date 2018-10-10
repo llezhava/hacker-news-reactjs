@@ -5,6 +5,8 @@ import Stories from "./Stories";
 
 const StoriesRouter = ({ match, location, category }) => {
 
+  console.log("ROUTING...", category)
+
   return (
     <Switch>
       <Route

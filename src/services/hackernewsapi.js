@@ -44,7 +44,7 @@ function getStories(type) {
     case types.GET_NEW_STORIES:
       return fetchStories("newstories");
     case types.GET_TOP_STORIES:
-      return fetchStories("newstories");
+      return fetchStories("topstories");
     default:
       break;
   }

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
-
 import Page from "./Page";
 import { getStories } from "../services/hackernewsapi";
 
@@ -11,17 +9,25 @@ class Stories extends Component {
       currentDisplay: 0,
       stories: []
     };
-    this.category = props.category;
     this.page = props.match.match.params.page || 0;
   }
 
   componentDidMount() {
-    getStories(this.category).then(rawStories => {
-      console.log("Stories: ", stories);
+    this.updateStoryItems(this.props.category)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.category !== this.props.category) {
+      this.setState({ stories: [] });
+      this.updateStoryItems(this.props.category);
+    }
+  }
+
+  updateStoryItems(category) {
+    getStories(category).then(rawStories => {
       let stories = this.getItems(rawStories, this.page).map(story => {
         return { story: story.item.val(), index: story.index };
       });
-
       this.setState({ stories });
     });
   }
