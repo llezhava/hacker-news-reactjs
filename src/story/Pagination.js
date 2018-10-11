@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import StoriesRouter from "./StoriesRouter";
 
 function Pagination({ pageNumber, path }) {
   let currentPage = pageNumber;
@@ -9,7 +8,11 @@ function Pagination({ pageNumber, path }) {
 
   return (
     <div className="pagination">
-      <Link to={`${path}/${previousPage}`}>Previous</Link>
+      {previousPage < 0 ? (
+        ""
+      ) : (
+        <Link to={`${path}/${previousPage}`}>Previous</Link>
+      )}
       <Link to={`${path}/${nextPage}`}>Next</Link>
     </div>
   );
