@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import StoriesRouter from "./story/StoriesRouter";
 import Header from "./common/Header";
+import FullStory from "./story/FullStory";
 
 import * as storyTypes from "./services/operationTypes";
 
@@ -42,6 +43,7 @@ class App extends Component {
               <StoriesRouter {...props} category={storyTypes.GET_NEW_STORIES} />
             )}
           />
+          <Route path={`/story/:id`} component={FullStory} />
         </Switch>
       </div>
     );

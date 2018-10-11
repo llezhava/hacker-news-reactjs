@@ -12,12 +12,11 @@ const rootRef = firebase.database().ref("v0");
 
 const MAX_ITEM = "maxitem";
 
-function getItem(itemNumber) {
+ function getItem(itemNumber) {
   let item = rootRef
     .child("item")
     .child(itemNumber)
     .once("value");
-
   return item;
 }
 
@@ -61,4 +60,4 @@ function fetchStories(type) {
     });
 }
 
-export { getStories };
+export { getStories, getItem};
