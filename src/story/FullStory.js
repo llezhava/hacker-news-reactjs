@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "./Card";
+import Comments from "../comments/Comments"
 import getComments from "../services/getComments";
 import * as api from "../services/hackernewsapi";
 
@@ -24,8 +25,8 @@ class FullStory extends Component {
 
   getComments(id) {
     let comments = getComments(id);
-    comments.then(i => {
-        console.log("Comments: ",i)
+    comments.then(comments => {
+        this.setState({comments})
     });
   }
 
@@ -33,6 +34,7 @@ class FullStory extends Component {
     return (
       <div className="fullStory">
         <Card {...this.state.itemData} />
+        <Comments id={this.props.match.params.id} />
       </div>
     );
   }
