@@ -12,7 +12,6 @@ class Comments extends Component {
   // If StoryID is received, update from StoryId.
   // Else update from newKids
   getComments(storyId, kids) {
-    debugger
     if (storyId) {
       getItem(storyId)
         .then(dataSnapshot => {

@@ -3,18 +3,6 @@ import Comments from "./Comments";
 import Card from "./Card";
 import { id } from "postcss-selector-parser";
 
-// function Comment({ by, text, time, clickHandler, id }) {
-//   return (
-//     <div className="comment">
-//       <div className="metaInformation">
-//         <button onClick={e => clickHandler(id)}>+</button>
-//         by {by} |{time}
-//       </div>
-//       {text}
-//     </div>
-//   );
-// }
-
 const RenderKids = ({ kids }) => {
   function getKids() {
     if (kids) {
@@ -26,6 +14,15 @@ const RenderKids = ({ kids }) => {
   return <div className="children">{getKids()}</div>;
 };
 
+const RenderBody = ({ text, kids }) => {
+  return (
+    <div className="body">
+      {text}
+      <RenderKids kids={kids} />
+    </div>
+  );
+};
+
 class Comment extends Component {
   constructor(props) {
     super(props);
@@ -33,22 +30,19 @@ class Comment extends Component {
       isVisible: true
     };
 
-    this.clickHandler = this.clickHandler.bind(this);
+    this.toggleVisible = this.toggleVisible.bind(this);
   }
 
-  clickHandler(e) {
-    this.setState({ visible: !this.state.isVisible });
+  toggleVisible(e) {
+    console.log("Clicked");
+    this.setState({ isVisible: !this.state.isVisible });
   }
 
   render() {
     return (
       <div className="comment">
-        <div className="metaInformation">
-          <button onClick={this.clickHandler}>+</button>
-          by {this.props.by} |{this.props.time}
-        </div>
-        <div className="comment">{this.props.text}</div>
-          <RenderKids kids={this.props.kids} />
+        <Card {...this.props} toggleVisible={this.toggleVisible} isVisible={this.state.isVisible} />
+        {this.state.isVisible ? <RenderBody {...this.props}/> : ""}
       </div>
     );
   }
