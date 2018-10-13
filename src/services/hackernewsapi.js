@@ -12,30 +12,6 @@ const rootRef = firebase.database().ref("v0");
 
 const MAX_ITEM = "maxitem";
 
- function getItem(itemNumber) {
-  let item = rootRef
-    .child("item")
-    .child(itemNumber)
-    .once("value");
-  return item;
-}
-
-function getMaxItem() {
-  let maxItem = rootRef.child(MAX_ITEM).once("value");
-  return maxItem;
-}
-
-function newStoriesListener(fn) {
-  return rootRef.child("newstories").on("child_changed", fn);
-}
-
-function newStoriesAdded() {
-  console.log("Started listening to new stories add");
-  let maxItem = rootRef.child("newstories").on("child_added", item => {
-    console.log("newstorieschild_added", item.val());
-  });
-}
-
 function getStories(type) {
   switch (type) {
     case types.GET_BEST_STORIES:
@@ -60,4 +36,16 @@ function fetchStories(type) {
     });
 }
 
-export { getStories, getItem};
+function getItem(itemNumber) {
+  let item = rootRef
+    .child("item")
+    .child(itemNumber)
+    .once("value");
+  return item;
+}
+
+function getItems(ids) {
+  return Promise.all(ids.map(id => getItem(id)));
+}
+
+export { getStories, getItem, getItems };
