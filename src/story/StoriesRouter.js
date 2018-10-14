@@ -22,9 +22,6 @@ const StoriesRouter = ({ match, location, category }) => {
   );
 };
 
-/**
- * TODO: Make Pagination component
- * call it from the pagination component
- */
+
 
 export default StoriesRouter;

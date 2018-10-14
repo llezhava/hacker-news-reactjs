@@ -8,10 +8,17 @@ class FullStory extends Component {
     super(props);
     this.state = {
       itemData: {},
-      comments: []
+      comments: [],
+      hasError: false
     };
     this.getItemData(props.match.params.id);
   }
+
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+  }
+
 
   getItemData(id) {
     let itemData = api.getItem(id);
@@ -22,6 +29,9 @@ class FullStory extends Component {
   }
 
   render() {
+    if(this.state.hasError) {
+      return <div className="error">Error occured!</div>
+    }
     return (
       <div className="fullStory">
         <Card {...this.state.itemData} />

@@ -14,10 +14,10 @@ class Stories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentDisplay: 0,
       stories: [],
       pageNumber: props.match.params.page || 0,
-      path: this.getPath(props.match.path)
+      path: this.getPath(props.match.path),
+      hasError: false
     };
   }
 
@@ -55,6 +55,11 @@ class Stories extends Component {
     }
   }
 
+  componentDidCatch(error, info) {
+    this.setState({ hasError: true });
+    // You can also log the error to an error reporting service
+  }
+
   updateStoryItems(category) {
     getStories(category).then(rawStories => {
       let stories = this.getItems(rawStories, this.state.pageNumber).map(
@@ -77,6 +82,10 @@ class Stories extends Component {
   }
 
   render() {
+    if(this.state.hasError) {
+      return <div className="error">Error occured!</div>
+    }
+
     return (
       <div className="container">
         <Page items={this.state.stories} />

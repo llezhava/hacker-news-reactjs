@@ -4,6 +4,7 @@ import "./App.css";
 import StoriesRouter from "./story/StoriesRouter";
 import Header from "./common/Header";
 import FullStory from "./story/FullStory";
+import User from "./user/User"
 
 import * as storyTypes from "./services/operationTypes";
 
@@ -44,6 +45,8 @@ class App extends Component {
             )}
           />
           <Route path={`/story/:id`} component={FullStory} />
+          <Route path={`/user/:name`} component={User} />
+
         </Switch>
       </div>
     );

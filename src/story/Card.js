@@ -13,7 +13,7 @@ function Card({ by, descendants, id, score, time, title, url, index }) {
       </a>
       <div className="meta">
         {score} points | by {by} {timeOperations.timesAgo(time)} |{" "}
-        <Link to={`story/${id}`}>{descendants} comments.</Link>
+        <a href={`http://${window.location.host}/story/${id}`}>{descendants} comments.</a>
       </div>
     </div>
   );

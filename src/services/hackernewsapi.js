@@ -48,4 +48,12 @@ function getItems(ids) {
   return Promise.all(ids.map(id => getItem(id)));
 }
 
-export { getStories, getItem, getItems };
+function getUserData(userId) {
+  let item = rootRef
+    .child("user")
+    .child(userId)
+    .once("value");
+  return item;
+}
+
+export { getStories, getItem, getItems, getUserData };
