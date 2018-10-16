@@ -3,6 +3,7 @@ import Page from "./Page";
 import Pagination from "./Pagination";
 import { getStory, getItem , getStories} from "../services/hackernewsapi";
 import Data from "./Data"
+import WaitingForData from "../common/WaitingForData"
 
 const initialState = {
   currentDisplay: 0,
@@ -23,7 +24,8 @@ class Storiesx extends Component {
       stories: [],
       pageNumber: props.match.params.page || 0,
       path: this.getPath(props.match.path),
-      hasError: false
+      hasError: false,
+      isFetching: true
     };
   }
 
@@ -33,7 +35,7 @@ class Storiesx extends Component {
   }
 
   componentDidMount() {
-    this.updateStoryItems(this.props.category);
+   this.updateStoryItems(this.props.category);
   }
 
   componentDidUpdate(prevProps) {
@@ -67,6 +69,11 @@ class Storiesx extends Component {
   }
 
   updateStoryItems() {
+    this.setState({isFetching: true}, this.getNewStories)
+    
+  }
+
+  getNewStories() {
     let category = this.props.category;
 
     getStories(category).then(rawStories => {
@@ -75,7 +82,7 @@ class Storiesx extends Component {
           return { story: story.item.val(), index: story.index };
         }
       );
-      this.setState({ stories });
+      this.setState({ stories, isFetching: false });
     });
   }
 
@@ -96,7 +103,9 @@ class Storiesx extends Component {
 
     return (
       <div className="container">
+      <WaitingForData isFetching={this.state.isFetching}>
         <Page items={this.state.stories} style={style} />
+        </WaitingForData>
         <Pagination pageNumber={this.state.pageNumber} path={this.state.path} />
       </div>
     );
@@ -107,7 +116,7 @@ class Stories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stories: [],
+      itemsList: [],
       pageNumber: props.match.params.page || 0,
       path: this.getPath(props.match.path),
       hasError: false
@@ -156,19 +165,10 @@ class Stories extends Component {
   updateStoryItems() {
     let {category} = this.props;
 
-    getStory(category).then(IDList => {
-      console.log("ID LIST: ", IDList)
-      this.setState({stories: IDList})
+    getStory(category).then(idList => {
+      let items = this.getItems(idList, this.state.pageNumber)
+      this.setState({idList: items})
     })
-
-    // getStories(category).then(rawStories => {
-    //   let stories = this.getItems(rawStories, this.state.pageNumber).map(
-    //     story => {
-    //       return { story: story.item.val(), index: story.index };
-    //     }
-    //   );
-    //   this.setState({ stories });
-    // });
   }
 
   getItems(stories, pageNumber, itemsPerPage = 50) {
@@ -185,12 +185,9 @@ class Stories extends Component {
     if (this.state.hasError) {
       return <div className="error">Error occured!</div>;
     }
-
-    console.log(this.state.stories)
-
     return (
       <div className="container">
-        <Page items={this.state.stories} />
+        <Page items={this.state.itemsList} />
         <Pagination pageNumber={this.state.pageNumber} path={this.state.path} />
       </div>
     );
