@@ -36,6 +36,28 @@ function fetchStories(type) {
     });
 }
 
+function getStory(type) {
+  switch (type) {
+    case types.GET_BEST_STORIES:
+      return getStoryItem("beststories");
+    case types.GET_NEW_STORIES:
+      return getStoryItem("newstories");
+    case types.GET_TOP_STORIES:
+      return getStoryItem("topstories");
+    default:
+      break;
+  }
+}
+
+function getStoryItem(type) {
+  return rootRef
+    .child(type)
+    .once("value")
+    .then(IDlist => {
+      return IDlist.val();
+    });
+}
+
 function getItem(itemNumber) {
   let item = rootRef
     .child("item")
@@ -56,4 +78,4 @@ function getUserData(userId) {
   return item;
 }
 
-export { getStories, getItem, getItems, getUserData };
+export { getStories, getStory, getItem, getItems, getUserData };
