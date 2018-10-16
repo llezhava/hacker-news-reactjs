@@ -1,24 +1,15 @@
 import React, { Component } from "react";
 import Comments from "./Comments";
 import Card from "./Card";
-import { id } from "postcss-selector-parser";
+import { getItem } from "../services/hackernewsapi";
+import WaitingForData from "../common/WaitingForData";
 
-const RenderKids = ({ kids }) => {
-  function getKids() {
-    if (kids) {
-      return <Comments newKids={kids} />;
-    } else {
-      return "";
-    }
-  }
-  return <div className="children">{getKids()}</div>;
-};
-
-const RenderBody = ({ text, kids }) => {
+const CommentBody = ({ text, kids }) => {
+  console.log("Kids: ", kids, text);
   return (
-    <div className="body">
-      {text}
-      <RenderKids kids={kids} />
+    <div className="comment">
+      <div dangerouslySetInnerHTML={ {__html: text} } />
+      <div className="children">{kids ? <Comments newKids={kids} /> : ""}</div>
     </div>
   );
 };
@@ -27,10 +18,23 @@ class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: undefined,
+      isFetching: true,
       isVisible: true
     };
 
     this.toggleVisible = this.toggleVisible.bind(this);
+  }
+
+  fetch(id) {
+    getItem(id).then(data => {
+      this.setState({ data: data.val(), isFetching: false });
+    });
+  }
+
+  componentDidMount() {
+    let { id } = this.props;
+    this.setState({ isLoading: true }, this.fetch(id));
   }
 
   toggleVisible(e) {
@@ -41,8 +45,14 @@ class Comment extends Component {
   render() {
     return (
       <div className="comment">
-        <Card {...this.props} toggleVisible={this.toggleVisible} isVisible={this.state.isVisible} />
-        {this.state.isVisible ? <RenderBody {...this.props}/> : ""}
+        <WaitingForData isFetching={this.state.isFetching}>
+          <Card
+            {...this.state.data}
+            toggleVisible={this.toggleVisible}
+            isVisible={this.state.isVisible}
+          />
+          {this.state.isVisible ? <CommentBody {...this.state.data} /> : ""}
+        </WaitingForData>
       </div>
     );
   }

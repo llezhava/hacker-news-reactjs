@@ -1,42 +1,42 @@
 import React, { Component } from "react";
 import Comment from "./Comment";
-import { getItem, getItems } from "../services/hackernewsapi";
+import { getItem } from "../services/hackernewsapi";
+
+/*
+TODO 1: Refactor getComments() function, it now takes StoryId and kids props. 
+        I am considering to separate story fetching functionality from this component.
+*/
 
 class Comments extends Component {
   constructor(props) {
     super(props);
-    this.state = { comments: [] };
-    this.getComments(props.storyId, props.newKids);
+    this.state = { kids: [] };
+  }
+
+  componentDidMount() {
+    this.getComments(this.props.storyId, this.props.newKids);
   }
 
   // If StoryID is received, update from StoryId.
   // Else update from newKids
   getComments(storyId, kids) {
     if (storyId) {
-      getItem(storyId)
-        .then(dataSnapshot => {
-          let item = dataSnapshot.val();
-          console.log(item)
-          let comments = item.kids || [];
-          return getItems(comments);
-        })
-        .then(commentsDataSnapshot => {
-          let comments = commentsDataSnapshot.map(comment => comment.val());
-          this.setState({ comments: comments });
-        });
-    } else {
-      getItems(kids).then(dataSnapshots => {
-        let comments = dataSnapshots.map(i => i.val());
-        this.setState({ comments });
+      getItem(storyId).then(dataSnapshot => {
+        let item = dataSnapshot.val();
+        console.log(item);
+        let kids = item.kids || [];
+        this.setState({ kids });
       });
+    } else {
+      this.setState({ kids });
     }
   }
 
   render() {
     return (
       <section className="comments">
-        {this.state.comments.map(comment => (
-          <Comment {...comment} />
+        {this.state.kids.map((kid, index) => (
+          <Comment key={index} id={kid} />
         ))}
       </section>
     );
