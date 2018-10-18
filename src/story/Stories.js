@@ -67,18 +67,10 @@ class Stories extends Component {
 
 function renderFunction(items) {
   let mappedItems = items.map((id, index) =>  {
-      return <div><SingleItem key={index} id={id} index={index} /></div>
+      return <div><SingleItem key={index} id={id.id} index={id.index} /></div>
   })
   return mappedItems
 }
 
-function StoriesWithPagination(props) {
-  return( <Pagination
-    {...this.props}
-      allData={this.state.itemsList}
-      perPage={15}
-      render={renderFunction}
-    />)
-}
 
 export default Stories;

@@ -2,9 +2,11 @@ import React from "react";
 import { Link, Route } from "react-router-dom";
 
 import * as timeOperations from "../services/timeOperations";
-import FullStory from "./FullStory";
 
-function Card({ by, descendants, id, score, time, title, url, index }) {
+const Card = (props) => {
+  let { by, descendants, id, score, time, title, url, index } = props
+  console.log(props)
+
   return (
     <div className="storyCard">
       {index} index
@@ -13,10 +15,10 @@ function Card({ by, descendants, id, score, time, title, url, index }) {
       </a>
       <div className="meta">
         {score} points | by {by} {timeOperations.timesAgo(time)} |{" "}
-        <a href={`http://${window.location.host}/story/${id}`}>{descendants} comments.</a>
+        <Link to={{pathname: `/story/${id}`}}>{descendants} comments.</Link>
       </div>
     </div>
   );
-}
+};
 
 export default Card;

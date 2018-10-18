@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import Card from "./Card";
-import Comments from "../comments/Comments"
+import Card from "../story/Card";
+import Comments from "./Comments"
 import * as api from "../services/hackernewsapi";
+import WaitingForData from "../common/WaitingForData"
 
 class FullStory extends Component {
   constructor(props) {
@@ -9,8 +10,11 @@ class FullStory extends Component {
     this.state = {
       itemData: {},
       comments: [],
-      hasError: false
+      hasError: false,
+      notFound: false,
+      isFetching: true
     };
+    
     this.getItemData(props.match.params.id);
   }
 
@@ -24,7 +28,9 @@ class FullStory extends Component {
     let itemData = api.getItem(id);
     itemData.then(i => {
       let itemData = i.val();
-      this.setState({ itemData });
+      if(itemData) this.setState({ itemData, isFetching: false });
+      else this.setState({notFound: true})
+      
     });
   }
 
@@ -32,10 +38,15 @@ class FullStory extends Component {
     if(this.state.hasError) {
       return <div className="error">Error occured!</div>
     }
+    if(this.state.notFound) {
+      return <div className="fullStory">We could not find the following item.</div>
+    }
     return (
       <div className="fullStory">
-        <Card {...this.state.itemData} />
+      <WaitingForData isFetching={this.state.isFetching}>
+        <Card {...this.state.itemData}/>
         <Comments storyId={this.props.match.params.id} />
+        </WaitingForData>
       </div>
     );
   }

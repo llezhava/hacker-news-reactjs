@@ -10,7 +10,7 @@ TODO 1: Refactor getComments() function, it now takes StoryId and kids props.
 class Comments extends Component {
   constructor(props) {
     super(props);
-    this.state = { kids: [] };
+    this.state = { kids: [], notFound: false };
   }
 
   componentDidMount() {
@@ -23,9 +23,12 @@ class Comments extends Component {
     if (storyId) {
       getItem(storyId).then(dataSnapshot => {
         let item = dataSnapshot.val();
-        console.log(item);
-        let kids = item.kids || [];
-        this.setState({ kids });
+        let kids;
+        if(item) {
+          kids= item.kids || []
+          this.setState({ kids });
+        } 
+        else this.setState({notFound: true})
       });
     } else {
       this.setState({ kids });
@@ -35,7 +38,8 @@ class Comments extends Component {
   render() {
     return (
       <section className="comments">
-        {this.state.kids.map((kid, index) => (
+      {this.state.notFound ? "" :
+        this.state.kids.map((kid, index) => (
           <Comment key={index} id={kid} />
         ))}
       </section>

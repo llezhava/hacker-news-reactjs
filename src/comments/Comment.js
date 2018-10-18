@@ -5,7 +5,6 @@ import { getItem } from "../services/hackernewsapi";
 import WaitingForData from "../common/WaitingForData";
 
 const CommentBody = ({ text, kids }) => {
-  console.log("Kids: ", kids, text);
   return (
     <div className="comment">
       <div dangerouslySetInnerHTML={ {__html: text} } />
@@ -38,7 +37,6 @@ class Comment extends Component {
   }
 
   toggleVisible(e) {
-    console.log("Clicked");
     this.setState({ isVisible: !this.state.isVisible });
   }
 
