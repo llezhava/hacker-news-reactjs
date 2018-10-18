@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getUserData } from "../services/hackernewsapi";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Router } from "react-router-dom";
+import Submissions from "./Submissions"
 
 class User extends Component {
   constructor(props) {
@@ -31,14 +32,9 @@ class User extends Component {
         {this.state.about ? <li>About: {this.state.about}</li> : ""}
         <li>Submissions</li>
         <li>Comments</li>
-        {/* <Route
-          path={match.url}
-          render={routes => (
-            <Stories category={category} match={match} {...routes} />
-          )}
-        /> */}
-
-        {/* <Route path={`/submissions/:userName`} render={<Comments} /> */}
+        <Router>
+        <Route path={`/submissions/:userName`} render={ () => <Submissions />} />
+        </Router>
       </div>
     );
   }

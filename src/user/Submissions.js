@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Card from "../story/Card";
 import { getItems, getUserData } from "../services/hackernewsapi";
-import withPagination from "./withPagination";
 
-let filter = i => i.type === "story"
+let filter = i => i.type === "story";
 
 function getData(userName, filter) {
   return getUserData(userName)
@@ -16,14 +14,14 @@ function getData(userName, filter) {
     });
 }
 
-function Submissions({ data }) {
-  return (
-    <div>
-      {data.map((story, index) => {
-        <Card key={index} {...story.story} index={story.index} />;
-      })}
-    </div>
-  );
+class Submissions extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return <div>Here will be submissions of the user</div>;
+  }
 }
 
-let PaginationSubmissions = withPagination(submissions, getData);
+export default Submissions;

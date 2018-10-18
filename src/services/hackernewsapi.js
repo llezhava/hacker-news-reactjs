@@ -10,7 +10,6 @@ firebase.initializeApp(firebaseConfig);
 // Create a reference with .ref() instead of new Firebase(url)
 const rootRef = firebase.database().ref("v0");
 
-const MAX_ITEM = "maxitem";
 
 function getStories(type) {
   switch (type) {
@@ -74,8 +73,33 @@ function getUserData(userId) {
   let item = rootRef
     .child("user")
     .child(userId)
-    .once("value");
+    .once("value")
+    .then(userData => userData.val());
   return item;
 }
+function getDataRange(idList, n, type, start, end) {
+  let _idList = [...idList]
+  let typeMatch = 0;
+
+  let data = []
+
+  // Get the data (_idList.shift())
+
+  // Check if matches type
+  // increment typeMatch if so
+
+  // Check if it is within the range.
+  // Push it into the data if so.
+
+  // HOW TO STOP THE WHILE LOOP
+  // 1: data.length >= n
+  // 2: _idList is empty
+
+  // while(needData) {
+
+  // }
+
+}
+
 
 export { getStories, getStory, getItem, getItems, getUserData };
