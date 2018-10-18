@@ -17,13 +17,21 @@ class SingleItem extends Component {
 
   componentDidMount() {
     let { id } = this.props;
-    this.setState({ isLoading: true }, this.fetch(id));
+    this.setState({ isLoading: true }, this.fetch(id.id));
+  }
+
+  componentDidUpdate(prevprops) {
+    let { id } = this.props;
+    if(prevprops.id !== this.props.id) {
+      this.setState({ isLoading: true }, this.fetch(id.id));
+    }
   }
 
   render() {
+    let items = Object.assign({}, this.state.data, this.props)
     return (
       <WaitingForData isFetching={this.state.isFetching}>
-        <Card {...this.state.data} />
+        <Card {...items}/>
       </WaitingForData>
     );
   }
