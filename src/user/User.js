@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { getUserData } from "../services/hackernewsapi";
-import { Route, Switch, Router } from "react-router-dom";
+import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import Submissions from "./Submissions";
 
-const User = (props) => {
+const User1 = (props) => {
   return(<div> Under Reconstruction... </div>)
 }
 
-class User1 extends Component {
+class User extends Component {
   constructor(props) {
     super(props);
     this.state = { id: "", created: "", karma: "", about: undefined };
@@ -15,7 +15,6 @@ class User1 extends Component {
   }
 
   updateUser(userName) {
-    debugger;
     if (!userName) return undefined;
     getUserData(userName).then(data => {
       console.log(data);
@@ -44,14 +43,15 @@ class User1 extends Component {
         )}
         <li>Submissions</li>
         <li>Comments</li>
-        <Router>
+         <Switch>
           <Route
-            path={`/submissions/:userName`}
-            render={() => <Submissions />}
+            path={`${this.props.match.path}/submissions/`}
+            component={Submissions}
           />
-        </Router>
+        </Switch>
       </div>
     );
+    
   }
 }
 
