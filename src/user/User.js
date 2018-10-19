@@ -43,12 +43,6 @@ class User extends Component {
         )}
         <li>Submissions</li>
         <li>Comments</li>
-         <Switch>
-          <Route
-            path={`${this.props.match.path}/submissions/`}
-            component={Submissions}
-          />
-        </Switch>
       </div>
     );
     
