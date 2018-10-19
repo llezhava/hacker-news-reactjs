@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { getUserData } from "../services/hackernewsapi";
 import { Route, Switch, Router } from "react-router-dom";
-import Submissions from "./Submissions"
+import Submissions from "./Submissions";
 
-class User extends Component {
+const User = (props) => {
+  return(<div> Under Reconstruction... </div>)
+}
+
+class User1 extends Component {
   constructor(props) {
     super(props);
     this.state = { id: "", created: "", karma: "", about: undefined };
@@ -11,14 +15,15 @@ class User extends Component {
   }
 
   updateUser(userName) {
+    debugger;
     if (!userName) return undefined;
     getUserData(userName).then(data => {
-      let val = data.val();
+      console.log(data);
       this.setState({
-        id: val.id,
-        created: val.created,
-        karma: val.karma,
-        about: val.about
+        id: data.id,
+        created: data.created,
+        karma: data.karma,
+        about: data.about
       });
     });
   }
@@ -29,11 +34,21 @@ class User extends Component {
         <li>User: {this.state.id}</li>
         <li>Created: {this.state.created} </li>
         <li>Karma: {this.state.karma}</li>
-        {this.state.about ? <li>About: {this.state.about}</li> : ""}
+        {this.state.about ? (
+          <li>
+            About:{" "}
+            <div dangerouslySetInnerHTML={{ __html: this.state.about }} />{" "}
+          </li>
+        ) : (
+          ""
+        )}
         <li>Submissions</li>
         <li>Comments</li>
         <Router>
-        <Route path={`/submissions/:userName`} render={ () => <Submissions />} />
+          <Route
+            path={`/submissions/:userName`}
+            render={() => <Submissions />}
+          />
         </Router>
       </div>
     );

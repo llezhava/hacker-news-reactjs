@@ -7,10 +7,7 @@ class Stories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      /*
-       [{id: 18231097, index: 0}]
-      */
-      itemsList: [],
+      idList: [],
       hasError: false
     };
   }
@@ -21,15 +18,19 @@ class Stories extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.category !== this.props.category) {
-      this.setState({ stories: [] }, this.updateStoryItems(this.props.category));
-      
+      this.setState(
+        { idList: [] },
+        this.updateStoryItems(this.props.category)
+      );
     }
 
     if (prevProps.match.path !== this.props.match.path) {
-      this.setState({ stories: [] }, this.updateStoryItems(this.props.category));
-
+      this.setState(
+        { idList: [] },
+        this.updateStoryItems(this.props.category)
+      );
+    }
   }
-}
 
   componentDidCatch(error, info) {
     this.setState({ hasError: true });
@@ -40,10 +41,7 @@ class Stories extends Component {
     let { category } = this.props;
 
     getStory(category).then(idList => {
-      let itemsList = idList.map((id, index) => {
-        return { id, index };
-      });
-      this.setState({ itemsList });
+      this.setState({ idList });
     });
   }
 
@@ -51,26 +49,27 @@ class Stories extends Component {
     if (this.state.hasError) {
       return <div className="error">Error occured!</div>;
     }
-   
+
     return (
       <div className="container">
         <Pagination
-        {...this.props}
-          allData={this.state.itemsList}
+          {...this.props}
+          allData={this.state.idList}
           perPage={15}
-          render={renderFunction}
+          addIndex={true}
+          render={items => {
+            return items.map((id, index) => {
+              return (
+                <div>
+                  <SingleItem key={index} id={id.id} index={id.index} />
+                </div>
+              );
+            });
+          }}
         />
       </div>
     );
   }
 }
-
-function renderFunction(items) {
-  let mappedItems = items.map((id, index) =>  {
-      return <div><SingleItem key={index} id={id.id} index={id.index} /></div>
-  })
-  return mappedItems
-}
-
 
 export default Stories;

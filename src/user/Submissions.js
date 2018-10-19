@@ -17,6 +17,16 @@ function getData(userName, filter) {
 class Submissions extends Component {
   constructor(props) {
     super(props);
+    this.state = {data: [], isFetching: true}
+  }
+
+  componentDidMount() {
+    let userName = this.props.match.params.userName
+    this.getUserSubmissions(userName)
+  }
+
+  getUserSubmissions(userName) {
+
   }
 
   render() {

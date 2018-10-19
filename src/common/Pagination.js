@@ -23,11 +23,10 @@ function Paginate({ currentPage, match }) {
   );
 }
 
-
 /**
- * 
  * @param allData: [] All the data the component needs to paginate
  * @param perPage: Number. Items that will appear per page.
+ * @param addIndex: boolean. Enumerate items into the pagination or not.
  */
 
 class Pagination extends Component {
@@ -46,11 +45,12 @@ class Pagination extends Component {
     let isPageChanged =
       prevProps.match.params.page !== this.props.match.params.page;
     let isDataChanged = prevProps.allData !== this.props.allData;
+    let isIndexingChanged = prevProps.addIndex !== this.props.addIndex
 
-    if (isPageChanged || isDataChanged) {
+    if (isPageChanged || isDataChanged || isIndexingChanged) {
       let currentPage = this.props.match.params.page || 0;
       this.setState({ items: [], currentPage }, () =>
-        this.handleChangePage(currentPage)
+        this.handleChangePage(currentPage, this.props.addIndex)
       );
     }
   }
@@ -60,13 +60,18 @@ class Pagination extends Component {
     return items.slice(currentStart, currentStart + perPage);
   }
 
-  handleChangePage(currentPage) {
+  handleChangePage(currentPage, addIndex = true) {
     let { allData, perPage } = this.props;
-    let items = this.sliceItems(allData, currentPage, perPage);
+    let processedItems = allData;
+    if (addIndex) {
+      processedItems = processedItems.map((i, index) => {
+        return { id: i, index };
+      });
+    }
+
+    let items = this.sliceItems(processedItems, currentPage, perPage);
     this.setState({ items, currentPage });
   }
-
-  
 
   render() {
     return (
