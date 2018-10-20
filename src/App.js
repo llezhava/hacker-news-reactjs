@@ -4,9 +4,8 @@ import "./App.css";
 import StoriesRouter from "./story/StoriesRouter";
 import Header from "./common/Header";
 import FullStory from "./comments/FullStory";
-import User from "./user/User"
-import Submissions from "./user/Submissions"
 import UserRouter from "./user/Router"
+import NotFound from "./common/NotFound"
 
 import * as storyTypes from "./services/operationTypes";
 
@@ -48,6 +47,7 @@ class App extends Component {
           />
           <Route path={`/story/:id`} component={FullStory} />
           <Route path={`/user/:name`} component={UserRouter} />
+          <Route component={NotFound}/>
         </Switch>
       </div>
     );

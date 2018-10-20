@@ -7,7 +7,7 @@ function Card({ by, time, toggleVisible, isVisible, kids }) {
 let kidsNormalized = kids ? kids.length : 0
   return (
       <div className="meta">
-        {by} | {timeOperations.timesAgo(time)} |<button onClick={toggleVisible}>{isVisible ? "Hide" : `Show ${kidsNormalized}`}</button>
+       by  <Link to={{pathname: `/user/${by}`}}>{by}</Link> | {timeOperations.timesAgo(time)} |<button onClick={toggleVisible}>{isVisible ? "Hide" : `Show ${kidsNormalized}`}</button>
       </div>
   );
 }

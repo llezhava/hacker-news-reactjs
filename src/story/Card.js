@@ -14,7 +14,7 @@ const Card = (props) => {
         <h3>{title}</h3>
       </a>
       <div className="meta">
-        {score} points | by {by} {timeOperations.timesAgo(time)} |{" "}
+        {score} points | by  <Link to={{pathname: `/user/${by}`}}>{by}</Link> {timeOperations.timesAgo(time)} |{" "}
         <Link to={{pathname: `/story/${id}`}}>{descendants} comments.</Link>
       </div>
     </div>

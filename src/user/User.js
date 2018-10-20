@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getUserData } from "../services/hackernewsapi";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Submissions from "./Submissions";
 
 const User1 = (props) => {
@@ -41,8 +41,8 @@ class User extends Component {
         ) : (
           ""
         )}
-        <li>Submissions</li>
-        <li>Comments</li>
+        <li><Link to={{pathname: `submissions/user/${this.state.id}`}}>Submissions</Link> </li>
+        <li><Link to={{pathname: `comments/user/${this.state.id}`}}>Comments</Link> </li>
       </div>
     );
     
