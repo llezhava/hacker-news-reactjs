@@ -1,0 +1,11 @@
+.root {
+    margin-top: 2em;
+}
+
+.root a{
+    margin-right: 1em
+}
+
+.root a:hover {
+    color: red;
+}

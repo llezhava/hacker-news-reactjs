@@ -19,8 +19,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
         <div className={styles.container}>
+        <Header />
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/top" />} />
 

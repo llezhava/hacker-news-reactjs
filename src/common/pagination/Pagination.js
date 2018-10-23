@@ -59,35 +59,4 @@ class Pagination extends Component {
     );
   }
 }
-
-// TODO: IMPLEMENT THIS FUNCTION, PARSE ALL THE URLS WITHOUT /
-
-function normalizePath(match) {
-  let path;
-  let isHomePage = match.path === "/"
-  console.log("Match from current Pagination: ", match)
-
-
-  if(!isHomePage) {
-   path = trimPageNumber(match.url)
-  } else {
-    path = getPath(match.path)
-  }
-
-  if(path.lastIndexOf("/") === path.length -1) {
-    path = path.slice(0, path.length - 2)
-  }
-  return path
-}
-
-function getPath(path) {
-  let regex = /\/:.*/gi;
-  return path.replace(regex, "");
-}
-
-function trimPageNumber(url) {
-  let regex = /\/page\/.*/gi;
-  return url.replace(regex, "");
-}
-
 export default Pagination;

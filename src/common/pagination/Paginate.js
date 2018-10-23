@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import styles from "../styles/pagination.module.css"
 
 /**
  * Display More if previousPage is less, than zero
@@ -13,7 +14,7 @@ function Paginate({ currentPage, match }) {
     let nextPage = Number(currentPage) + 1;
     let previousPage = Number(currentPage) - 1;
     return (
-      <div className="pagination">
+      <div className={styles.root}>
         {previousPage < 0 ? (
           ""
         ) : (
