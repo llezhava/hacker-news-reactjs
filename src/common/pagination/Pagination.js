@@ -8,7 +8,8 @@ import { Link } from "react-router-dom";
  */
 
 function Paginate({ currentPage, match }) {
-  let path = getPath(match.path);
+  let path = normalizePath(match);
+
   let nextPage = Number(currentPage) + 1;
   let previousPage = Number(currentPage) - 1;
   return (
@@ -16,9 +17,9 @@ function Paginate({ currentPage, match }) {
       {previousPage < 0 ? (
         ""
       ) : (
-        <Link to={`${path}/${previousPage}`}>Previous</Link>
+        <Link to={`${path}/page/${previousPage}`}>Previous</Link>
       )}
-      <Link to={`${path}/${nextPage}`}>Next</Link>
+      <Link to={`${path}/page/${nextPage}`}>Next</Link>
     </div>
   );
 }
@@ -45,7 +46,7 @@ class Pagination extends Component {
     let isPageChanged =
       prevProps.match.params.page !== this.props.match.params.page;
     let isDataChanged = prevProps.allData !== this.props.allData;
-    let isIndexingChanged = prevProps.addIndex !== this.props.addIndex
+    let isIndexingChanged = prevProps.addIndex !== this.props.addIndex;
 
     if (isPageChanged || isDataChanged || isIndexingChanged) {
       let currentPage = this.props.match.params.page || 0;
@@ -83,9 +84,34 @@ class Pagination extends Component {
   }
 }
 
+// TODO: IMPLEMENT THIS FUNCTION, PARSE ALL THE URLS WITHOUT /
+
+function normalizePath(match) {
+  let path;
+  let isHomePage = match.path === "/"
+  console.log("Match from current Pagination: ", match)
+
+
+  if(!isHomePage) {
+   path = trimPageNumber(match.url)
+  } else {
+    path = getPath(match.path)
+  }
+
+  if(path.lastIndexOf("/") === path.length -1) {
+    path = path.slice(0, path.length - 2)
+  }
+  return path
+}
+
 function getPath(path) {
   let regex = /\/:.*/gi;
   return path.replace(regex, "");
+}
+
+function trimPageNumber(url) {
+  let regex = /\/page\/.*/gi;
+  return url.replace(regex, "");
 }
 
 export default Pagination;

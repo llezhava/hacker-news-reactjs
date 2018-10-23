@@ -5,8 +5,6 @@ import * as timeOperations from "../services/timeOperations";
 
 const Card = (props) => {
   let { by, descendants, id, score, time, title, url, index } = props
-  console.log(props)
-
   return (
     <div className="storyCard">
       {index} index

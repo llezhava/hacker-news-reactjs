@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
+import styles from "./app.module.css"
 import StoriesRouter from "./story/StoriesRouter";
+import UserRouter from "./user/Router";
 import Header from "./common/Header";
 import FullStory from "./comments/FullStory";
-import UserRouter from "./user/Router"
-import NotFound from "./common/NotFound"
+import NotFound from "./common/NotFound";
 
 import * as storyTypes from "./services/operationTypes";
 
@@ -17,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className={styles.root}>
         <Header />
 
         <Switch>
@@ -47,7 +48,7 @@ class App extends Component {
           />
           <Route path={`/story/:id`} component={FullStory} />
           <Route path={`/user/:name`} component={UserRouter} />
-          <Route component={NotFound}/>
+          <Route component={NotFound} />
         </Switch>
       </div>
     );

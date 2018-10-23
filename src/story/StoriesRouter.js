@@ -15,7 +15,7 @@ const StoriesRouter = ({ match, location, category }) => {
         render={routes => <Stories category={category} match={match} {...routes} />}
       />
       <Route
-        path={`${match.url}/:page`}
+        path={`${match.url}/page/:page`}
         render={routes => <Stories category={category} match={match} {...routes}/>}
       />
     </Switch>

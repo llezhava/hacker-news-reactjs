@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Pagination from "../common/Pagination";
+import Pagination from "../common/pagination/Pagination";
 import { getStory } from "../services/hackernewsapi";
 import SingleItem from "./SingleItem";
 

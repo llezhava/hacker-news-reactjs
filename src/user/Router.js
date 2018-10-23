@@ -12,7 +12,7 @@ const CategoryRouter = ({ match }) => {
       return (
         <Route
           exact
-          path={`/user/:submissions/:userName/:page`}
+          path={`/user/:submissions/:userName/page/:page`}
           component={Submissions}
         />
       );
@@ -48,13 +48,12 @@ const StoriesRouter = ({ match, location, category }) => {
     <Switch>
       <Route exact path={`/user/:name`} component={User} />
       <Route
-        exact
-        path={`/user/:submissions/:userName`}
+        exact path={`/user/:submissions/:userName`}
         component={Submissions}
       />
       <Route
         exact
-        path={`/user/:category/:userName/:page`}
+        path={`/user/:category/:userName/page/:page`}
         component={CategoryRouter}
       />
     </Switch>

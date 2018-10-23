@@ -41,8 +41,8 @@ class User extends Component {
         ) : (
           ""
         )}
-        <li><Link to={{pathname: `submissions/user/${this.state.id}`}}>Submissions</Link> </li>
-        <li><Link to={{pathname: `comments/user/${this.state.id}`}}>Comments</Link> </li>
+        <li><Link to={{pathname: `submissions/${this.state.id}`}}>Submissions</Link> </li>
+        <li><Link to={{pathname: `comments/${this.state.id}`}}>Comments</Link> </li>
       </div>
     );
     

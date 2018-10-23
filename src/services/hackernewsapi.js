@@ -10,7 +10,6 @@ firebase.initializeApp(firebaseConfig);
 // Create a reference with .ref() instead of new Firebase(url)
 const rootRef = firebase.database().ref("v0");
 
-
 function getStories(type) {
   switch (type) {
     case types.GET_BEST_STORIES:
@@ -66,7 +65,7 @@ function getItem(itemNumber) {
 }
 
 function getItems(ids) {
-  return Promise.all(ids.map(id => getItem(id)));
+  return Promise.all(ids.map(id => getItem(id))).then(i => i.map(i => i.val()));
 }
 
 function getUserData(userId) {
@@ -77,11 +76,25 @@ function getUserData(userId) {
     .then(userData => userData.val());
   return item;
 }
-function getDataRange(idList, n, type, start, end) {
-  let _idList = [...idList]
+
+/**
+ *
+ * @param {Array} idList - Id list of all the possible data id's.
+ * @param {String} type - string representation of a data type we want to get (i.e comment, submission)
+ * @param {Number} start - starting index of the data. (starting from the n-th element found)
+ * @param {Number} n - The amount of data we need to get.
+ * @param {Boolean} addIndex - add indexation to the data?
+ * @returns {id, index} ? {id}
+ */
+function getDataRange(idList, type, start, n, addIndex = true) {
+  let _idList = [...idList];
   let typeMatch = 0;
 
-  let data = []
+  let dataList = [];
+
+  let needData = dataList.length <= n || _idList.length !== 0;
+  let isInRange = typeMatch > start && typeMatch < start + n;
+  let foundAllTheData = _idList.length <= 0 || n >= dataList.length;
 
   // Get the data (_idList.shift())
 
@@ -95,11 +108,33 @@ function getDataRange(idList, n, type, start, end) {
   // 1: data.length >= n
   // 2: _idList is empty
 
-  // while(needData) {
+  let previousPromise = [];
 
+  let currId = _idList.shift();
+
+  getItem(currId).then(data => {
+    if (data.type === type) {
+      typeMatch += 1;
+      if (isInRange) {
+        dataList.push(data);
+      }
+
+      if (foundAllTheData) {
+        return Promise.all(dataList);
+      }
+    }
+  });
+
+  // while (needData) {
+  //   let currId = _idList.shift();
+  //   getItem(currId).then(data => {
+  //     if (data.type === type) {
+  //       typeMatch += 1;
+  //       data.push(data.val());
+  //     } else {
+  //     }
+  //   });
   // }
-
 }
 
-
-export { getStories, getStory, getItem, getItems, getUserData };
+export { getStories, getStory, getItem, getItems, getUserData, getDataRange };
