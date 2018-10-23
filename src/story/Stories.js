@@ -51,7 +51,6 @@ class Stories extends Component {
     }
 
     return (
-      <div className="container">
         <Pagination
           {...this.props}
           allData={this.state.idList}
@@ -67,7 +66,6 @@ class Stories extends Component {
             });
           }}
         />
-      </div>
     );
   }
 }

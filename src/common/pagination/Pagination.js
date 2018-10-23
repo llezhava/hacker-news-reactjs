@@ -1,29 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
-/**
- * Display More if previousPage is less, than zero
- * Link to currentPage/previousPage if clicked less
- * Link to currentPage/nextPage if clicked more
- */
-
-function Paginate({ currentPage, match }) {
-  let path = normalizePath(match);
-
-  let nextPage = Number(currentPage) + 1;
-  let previousPage = Number(currentPage) - 1;
-  return (
-    <div className="pagination">
-      {previousPage < 0 ? (
-        ""
-      ) : (
-        <Link to={`${path}/page/${previousPage}`}>Previous</Link>
-      )}
-      <Link to={`${path}/page/${nextPage}`}>Next</Link>
-    </div>
-  );
-}
-
+import Paginate from "./Paginate"
 /**
  * @param allData: [] All the data the component needs to paginate
  * @param perPage: Number. Items that will appear per page.

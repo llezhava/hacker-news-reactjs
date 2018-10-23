@@ -1,0 +1,32 @@
+.root {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12pt;
+
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 1em;
+  /* border: 2px dashed #c7c0c0; */
+}
+
+.index {
+  width: 30px;
+  margin-right: 1em;
+  text-align: right;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px dotted #ccc; */
+}
+
+.meta {
+  font-size: 9pt;
+}
+
+.root h3 {
+  margin-top: 0;
+  font-size: 12pt;
+}
