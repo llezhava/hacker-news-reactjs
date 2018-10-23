@@ -4,4 +4,8 @@
 
 html {
   background-color: #282c34;
+  color: white;
+  font-family: Tahoma, Geneva, sans-serif;
+} a {
+  color: white;
 }

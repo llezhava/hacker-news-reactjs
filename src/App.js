@@ -18,7 +18,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className={styles.root}>
+      <div className={styles.container}>
         <Header />
 
         <Switch>
