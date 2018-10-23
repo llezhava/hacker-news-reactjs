@@ -18,9 +18,9 @@ class App extends Component {
 
   render() {
     return (
-      <div className={styles.container}>
+      <div>
         <Header />
-
+        <div className={styles.container}>
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/top" />} />
 
@@ -50,6 +50,7 @@ class App extends Component {
           <Route path={`/user/:name`} component={UserRouter} />
           <Route component={NotFound} />
         </Switch>
+      </div>
       </div>
     );
   }
