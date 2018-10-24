@@ -5,11 +5,21 @@ import { getItem } from "../services/hackernewsapi";
 import WaitingForData from "../common/WaitingForData";
 import styles from "./comments.module.css";
 
+const Children = props => {
+  return <div className={styles.children}>{props.children}</div>;
+};
+
 const CommentBody = ({ text, kids }) => {
   return (
-    <div className={styles.commentBody}>
+    <div className={`${styles.commentBody} commentText`}>
       <div dangerouslySetInnerHTML={{ __html: text }} />
-      <div className={styles.children}>{kids ? <Comments newKids={kids} /> : ""}</div>
+      <Children>
+        {kids
+          ? kids.map((kid, index) => {
+              return <Comment key={index} id={kid} />;
+            })
+          : ""}
+      </Children>
     </div>
   );
 };
@@ -24,6 +34,7 @@ class Comment extends Component {
     };
 
     this.toggleVisible = this.toggleVisible.bind(this);
+    this.countChildren = this.countChildren.bind(this);
   }
 
   fetch(id) {
@@ -39,22 +50,31 @@ class Comment extends Component {
 
   toggleVisible(e) {
     this.setState({ isVisible: !this.state.isVisible });
+    this.countChildren();
+  }
+
+  countChildren() {
+    console.log("Counting children...", React.Children, this.props.children);
+    let currentComment = document.getElementById(this.props.id)
+    let totalChildren = currentComment.getElementsByClassName("commentText").length
+    console.log(totalChildren)
   }
 
   render() {
     return (
-      <div className={styles.comment}>
-
-      <WaitingForData isFetching={this.state.isFetching}>
+      <div className={`${styles.comment}`} id={this.props.id}>
+        <WaitingForData isFetching={this.state.isFetching}>
           <Card
             {...this.state.data}
             toggleVisible={this.toggleVisible}
             isVisible={this.state.isVisible}
+            countChildren={this.countChildren}
           />
-          {this.state.isVisible ? <CommentBody {...this.state.data} /> : ""}
-      </WaitingForData>
+          <div hidden={!this.state.isVisible}>
+            <CommentBody {...this.state.data} />
+          </div>
+        </WaitingForData>
       </div>
-
     );
   }
 }
