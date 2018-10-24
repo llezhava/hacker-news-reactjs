@@ -10,15 +10,15 @@ const Navigation = props => {
   const activeStyle = { color: "red" };
   return (
     <nav className={styles.nav}>
-      <NavLink to="/" activeStyle={activeStyle} exact>
+      <NavLink to={`${process.env.PUBLIC_URL}/`} activeStyle={activeStyle} exact>
         Home
       </NavLink>
       {" | "}
-      <NavLink to="/best" activeStyle={activeStyle}>
+      <NavLink to={`${process.env.PUBLIC_URL}/best`} activeStyle={activeStyle}>
         Best
       </NavLink>
       {" | "}
-      <NavLink to="/new" activeStyle={activeStyle}>
+      <NavLink to={`${process.env.PUBLIC_URL}/new`} activeStyle={activeStyle}>
         New
       </NavLink>
     </nav>

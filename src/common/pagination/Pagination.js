@@ -24,6 +24,8 @@ class Pagination extends Component {
     let isDataChanged = prevProps.allData !== this.props.allData;
     let isIndexingChanged = prevProps.addIndex !== this.props.addIndex;
 
+    console.log(prevProps, this.props)
+
     if (isPageChanged || isDataChanged || isIndexingChanged) {
       let currentPage = this.props.match.params.page || 0;
       this.setState({ items: [], currentPage }, () =>

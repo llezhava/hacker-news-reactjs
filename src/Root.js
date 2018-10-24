@@ -7,7 +7,7 @@ import {
 
 export default function Root(props) {
   return (
-    <Router>
+    <Router basename={'/hacker-news-reactjs'}>
       <Route path="/" component={App} />
     </Router>
   );

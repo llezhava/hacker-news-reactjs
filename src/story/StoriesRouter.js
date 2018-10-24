@@ -5,7 +5,7 @@ import Stories from "./Stories";
 
 const StoriesRouter = ({ match, location, category }) => {
 
-  console.log("ROUTING...", category)
+  console.log("ROUTING...", category, match.url, location)
 
   return (
     <Switch>

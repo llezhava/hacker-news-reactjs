@@ -16,9 +16,10 @@ class Submissions extends Component {
     this.getData();
   }
 
+
   getData() {
     let type = "story";
-
+debugger
     let userName = this.props.match.params.userName;
 
     getUserData(userName)

@@ -18,9 +18,9 @@ function Paginate({ currentPage, match }) {
         {previousPage < 0 ? (
           ""
         ) : (
-          <Link to={`${path}/page/${previousPage}`}>Previous</Link>
+          <Link to={`${path}/page/${previousPage}`}><button>Previous</button></Link>
         )}
-        <Link to={`${path}/page/${nextPage}`}><buton>Next</buton></Link>
+        <Link to={`${path}/page/${nextPage}`}><button>Next</button></Link>
       </div>
     );
   }

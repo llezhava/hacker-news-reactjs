@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import {
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
-import styles from "./app.module.css"
+import styles from "./app.module.css";
 import StoriesRouter from "./story/StoriesRouter";
 import UserRouter from "./user/Router";
 import Header from "./common/Header";
@@ -20,37 +24,54 @@ class App extends Component {
     return (
       <div>
         <div className={styles.container}>
-        <Header />
-        <Switch>
-          <Route exact path="/" render={() => <Redirect to="/top" />} />
+          <Header />
+          <Switch>
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/`}
+              render={() => <Redirect to={`${process.env.PUBLIC_URL}/top`} />}
+            />
 
-          <Route
-            path="/top"
-            render={props => (
-              <StoriesRouter {...props} category={storyTypes.GET_TOP_STORIES} />
-            )}
-          />
+            <Route
+              path={`/top`}
+              render={props => (
+                <StoriesRouter
+                  {...props}
+                  category={storyTypes.GET_TOP_STORIES}
+                />
+              )}
+            />
 
-          <Route
-            path="/best"
-            render={props => (
-              <StoriesRouter
-                {...props}
-                category={storyTypes.GET_BEST_STORIES}
-              />
-            )}
-          />
-          <Route
-            path="/new"
-            render={props => (
-              <StoriesRouter {...props} category={storyTypes.GET_NEW_STORIES} />
-            )}
-          />
-          <Route path={`/story/:id`} component={FullStory} />
-          <Route path={`/user/:name`} component={UserRouter} />
-          <Route component={NotFound} />
-        </Switch>
-      </div>
+            <Route
+              path={`/best`}
+              render={props => (
+                <StoriesRouter
+                  {...props}
+                  category={storyTypes.GET_BEST_STORIES}
+                />
+              )}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/new`}
+              render={props => (
+                <StoriesRouter
+                  {...props}
+                  category={storyTypes.GET_NEW_STORIES}
+                />
+              )}
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/story/:id`}
+              component={FullStory}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/user/:name`}
+              component={UserRouter}
+            />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
       </div>
     );
   }
