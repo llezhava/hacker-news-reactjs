@@ -1,0 +1,40 @@
+.fullStory {
+    display: flex;
+    flex-direction: column; 
+}
+
+/* Layout for comments element */
+.comments {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment {
+    /* border-style: dotted; */
+    border-left-style: dashed;
+    border-left-width: 0.05em;
+    border-left-color: darkgray;
+    margin-top: 1em;
+    padding-left: 0.5em;
+}
+
+/* Layout for the comment body (includes comment text & children */
+.commentBody {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5em;
+}
+
+.children {
+    margin-left: 2em;
+}
+
+.card {
+    font-size: 10pt;
+}
+
+.card button {
+    border: none;
+    text-align: center;
+    display: inline-block;
+}

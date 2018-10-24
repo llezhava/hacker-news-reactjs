@@ -3,12 +3,13 @@ import Comments from "./Comments";
 import Card from "./Card";
 import { getItem } from "../services/hackernewsapi";
 import WaitingForData from "../common/WaitingForData";
+import styles from "./comments.module.css";
 
 const CommentBody = ({ text, kids }) => {
   return (
-    <div className="comment">
-      <div dangerouslySetInnerHTML={ {__html: text} } />
-      <div className="children">{kids ? <Comments newKids={kids} /> : ""}</div>
+    <div className={styles.commentBody}>
+      <div dangerouslySetInnerHTML={{ __html: text }} />
+      <div className={styles.children}>{kids ? <Comments newKids={kids} /> : ""}</div>
     </div>
   );
 };
@@ -42,16 +43,18 @@ class Comment extends Component {
 
   render() {
     return (
-      <div className="comment">
-        <WaitingForData isFetching={this.state.isFetching}>
+      <div className={styles.comment}>
+
+      <WaitingForData isFetching={this.state.isFetching}>
           <Card
             {...this.state.data}
             toggleVisible={this.toggleVisible}
             isVisible={this.state.isVisible}
           />
           {this.state.isVisible ? <CommentBody {...this.state.data} /> : ""}
-        </WaitingForData>
+      </WaitingForData>
       </div>
+
     );
   }
 }

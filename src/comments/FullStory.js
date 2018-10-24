@@ -3,6 +3,7 @@ import Card from "../story/Card";
 import Comments from "./Comments"
 import * as api from "../services/hackernewsapi";
 import WaitingForData from "../common/WaitingForData"
+import styles from "./comments.module.css"
 
 class FullStory extends Component {
   constructor(props) {
@@ -39,10 +40,11 @@ class FullStory extends Component {
       return <div className="error">Error occured!</div>
     }
     if(this.state.notFound) {
-      return <div className="fullStory">We could not find the following item.</div>
+      return <div className={styles.fullStory}>We could not find the following item.</div>
     }
+
     return (
-      <div className="fullStory">
+      <div className={styles.fullStory}>
       <WaitingForData isFetching={this.state.isFetching}>
         <Card {...this.state.itemData}/>
         <Comments storyId={this.props.match.params.id} />

@@ -8,7 +8,7 @@ const Card = props => {
   let { by, descendants, id, score, time, title, url, index } = props;
   return (
     <div className={styles.root}>
-      <div className={styles.index}>{index}.</div>
+      {index !== undefined ? <div className={styles.index}>{index}.</div> : "" }
       <div className={styles.content}>
         <h3>
           <a href={url}>{title}</a>

@@ -20,7 +20,7 @@ function Paginate({ currentPage, match }) {
         ) : (
           <Link to={`${path}/page/${previousPage}`}>Previous</Link>
         )}
-        <Link to={`${path}/page/${nextPage}`}>Next</Link>
+        <Link to={`${path}/page/${nextPage}`}><buton>Next</buton></Link>
       </div>
     );
   }

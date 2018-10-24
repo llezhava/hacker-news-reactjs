@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Comment from "./Comment";
 import { getItem } from "../services/hackernewsapi";
+import styles from "./comments.module.css"
 
 /*
 TODO 1: Refactor getComments() function, it now takes StoryId and kids props. 
@@ -30,6 +31,7 @@ class Comments extends Component {
         } 
         else this.setState({notFound: true})
       });
+      debugger
     } else {
       this.setState({ kids });
     }
@@ -37,7 +39,7 @@ class Comments extends Component {
 
   render() {
     return (
-      <section className="comments">
+      <section className={styles.comments}>
       {this.state.notFound ? "" :
         this.state.kids.map((kid, index) => (
           <Comment key={index} id={kid} />

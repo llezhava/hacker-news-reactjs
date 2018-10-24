@@ -8,6 +8,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 1em;
     /* border: 2px solid #c7c0c0; */
 
 }
