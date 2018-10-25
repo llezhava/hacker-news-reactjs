@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import {
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Route, Switch, Redirect, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import styles from "./app.module.css";
 import StoriesRouter from "./story/StoriesRouter";
@@ -18,18 +14,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     console.log(props);
+    console.log("Change V1");
   }
 
   render() {
     return (
+      
       <div>
         <div className={styles.container}>
           <Header />
           <Switch>
             <Route
               exact
-              path={`${process.env.PUBLIC_URL}/`}
-              render={() => <Redirect to={`${process.env.PUBLIC_URL}/top`} />}
+              path={`/`}
+              render={() => {
+                console.log("Matched exact homepage!!!!!");
+                return <Redirect to={`/top`} />;
+              }}
             />
 
             <Route
@@ -52,7 +53,7 @@ class App extends Component {
               )}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/new`}
+              path={`/new`}
               render={props => (
                 <StoriesRouter
                   {...props}
@@ -60,15 +61,8 @@ class App extends Component {
                 />
               )}
             />
-            <Route
-              exact
-              path={`${process.env.PUBLIC_URL}/story/:id`}
-              component={FullStory}
-            />
-            <Route
-              path={`${process.env.PUBLIC_URL}/user/:name`}
-              component={UserRouter}
-            />
+            <Route exact path={`/story/:id`} component={FullStory} />
+            <Route path={`/user/:name`} component={UserRouter} />
             <Route component={NotFound} />
           </Switch>
         </div>

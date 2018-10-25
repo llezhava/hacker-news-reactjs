@@ -15,11 +15,11 @@ const CategoryRouter = ({ match }) => {
       return (
         <Switch>
           <Route
-            exact path={`${process.env.PUBLIC_URL}/user/:submissions/:userName/`}
+            exact path={`/user/:submissions/:userName/`}
             component={Submissions}
           />
           <Route
-            exact path={`${process.env.PUBLIC_URL}/user/:submissions/:userName/page/:page`}
+            exact path={`/user/:submissions/:userName/page/:page`}
             component={Submissions}
           />
         </Switch>
@@ -30,11 +30,11 @@ const CategoryRouter = ({ match }) => {
       return (
         <Switch>
           <Route
-            exact path={`${process.env.PUBLIC_URL}/user/:comments/:userName/`}
+            exact path={`/user/:comments/:userName/`}
             component={Comments}
           />
            <Route
-            exact path={`${process.env.PUBLIC_URL}/user/:comments/:userName/page/:page`}
+            exact path={`/user/:comments/:userName/page/:page`}
             component={Comments}
           />
         </Switch>
@@ -49,26 +49,22 @@ const CategoryRouter = ({ match }) => {
 };
 
 const StoriesRouter = ({ match, location, category }) => {
-  // console.log("Match", match);
-  // console.log("Location",location)
-
-  // console.log("ROUTING...", category)
 
   return (
     <Switch>
       <Route
         exact
-        path={`${process.env.PUBLIC_URL}/user/:name`}
+        path={`/user/:name`}
         component={User}
       />
       <Route
         exact
-        path={`${process.env.PUBLIC_URL}/user/:category/:userName`}
+        path={`/user/:category/:userName`}
         component={CategoryRouter}
       />
       <Route
         exact
-        path={`${process.env.PUBLIC_URL}/user/:category/:userName/page/:page`}
+        path={`/user/:category/:userName/page/:page`}
         component={CategoryRouter}
       />
     </Switch>

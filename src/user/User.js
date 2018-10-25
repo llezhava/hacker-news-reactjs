@@ -41,8 +41,8 @@ class User extends Component {
         ) : (
           ""
         )}
-        <li><Link to={{pathname: `${process.env.PUBLIC_URL}/user/submissions/${this.state.id}`}}>Submissions</Link> </li>
-        <li><Link to={{pathname: `${process.env.PUBLIC_URL}/user/comments/${this.state.id}`}}>Comments</Link> </li>
+        <li><Link to={{pathname: `/user/submissions/${this.state.id}`}}>Submissions</Link> </li>
+        <li><Link to={{pathname: `/user/comments/${this.state.id}`}}>Comments</Link> </li>
       </div>
     );
     
