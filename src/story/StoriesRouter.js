@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import NotFound from "../common/NotFound";
+
 
 import Stories from "./Stories";
 
@@ -18,6 +20,7 @@ const StoriesRouter = ({ match, location, category }) => {
         path={`${match.url}/page/:page`}
         render={routes => <Stories category={category} match={match} {...routes}/>}
       />
+       <Route component={NotFound} />
     </Switch>
   );
 };

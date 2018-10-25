@@ -67,6 +67,7 @@ const StoriesRouter = ({ match, location, category }) => {
         path={`/user/:category/:userName/page/:page`}
         component={CategoryRouter}
       />
+      <Route component={NotFound} />
     </Switch>
   );
 };
