@@ -14,7 +14,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     console.log(props);
-    console.log("Change V1");
   }
 
   render() {
@@ -28,7 +27,6 @@ class App extends Component {
               exact
               path={`/`}
               render={() => {
-                console.log("Matched exact homepage!!!!!");
                 return <Redirect to={`/top`} />;
               }}
             />
